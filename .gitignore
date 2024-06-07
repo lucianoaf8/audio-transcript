@@ -1,9 +1,9 @@
-# Ignore all files in the to_transcript folder
-/to_transcript/*
+# Ignore all files in the data/input folder
+/data/input/*
 
-# Ignore all files in the transcripted folder
-/transcripted/*
+# Ignore all files in the data/output folder
+/data/output/*
 
-# Don't ignore the folders
-!/to_transcript/
-!/transcripted/
+# Don't ignore the folders themselves
+!/data/input/
+!/data/output/
