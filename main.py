@@ -8,8 +8,12 @@ model = whisper.load_model("base")
 # Suppress FP16 warning
 warnings.filterwarnings("ignore", message="FP16 is not supported on CPU; using FP32 instead")
 
-input_dir = "C:/Users/Luciano/Documents/Projects/audio-transcript/to_transcript"
-output_dir = "C:/Users/Luciano/Documents/Projects/audio-transcript/transcripted"
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the input and output directories
+input_dir = os.path.join(script_dir, "to_transcript")
+output_dir = os.path.join(script_dir, "transcripted")
 
 # Ensure directories exist
 if not os.path.exists(input_dir):
