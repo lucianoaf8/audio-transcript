@@ -1,7 +1,12 @@
 import os
+import warnings
 import whisper
+from datetime import timedelta
 
 model = whisper.load_model("base")
+
+# Suppress FP16 warning
+warnings.filterwarnings("ignore", message="FP16 is not supported on CPU; using FP32 instead")
 
 input_dir = "C:/Users/Luciano/Documents/Projects/audio-transcript/to_transcript"
 output_dir = "C:/Users/Luciano/Documents/Projects/audio-transcript/transcripted"
@@ -12,13 +17,26 @@ if not os.path.exists(input_dir):
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
-for filename in os.listdir(input_dir):
-    if filename.endswith(".m4a"):
-        input_path = os.path.join(input_dir, filename)
-        output_path = os.path.join(output_dir, os.path.splitext(filename)[0] + ".txt")
+def format_time(seconds):
+    td = timedelta(seconds=seconds)
+    minutes, seconds = divmod(td.seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    return f"{hours:02}:{minutes:02}:{seconds:02}"
 
-        result = model.transcribe(input_path)
-        with open(output_path, "w") as f:
-            f.write(result["text"])
+files = [f for f in os.listdir(input_dir) if f.endswith(".m4a")]
+total_files = len(files)
+
+for i, filename in enumerate(files):
+    input_path = os.path.join(input_dir, filename)
+    output_path = os.path.join(output_dir, os.path.splitext(filename)[0] + ".txt")
+
+    print(f"Processing file {i + 1}/{total_files}: {filename}")
+    result = model.transcribe(input_path)
+    with open(output_path, "w") as f:
+        for segment in result['segments']:
+            start = format_time(segment['start'])
+            end = format_time(segment['end'])
+            text = segment['text']
+            f.write(f"[{start} - {end}] {text}\n")
 
 print("Transcription complete.")
