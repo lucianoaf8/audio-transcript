@@ -32,8 +32,7 @@ audio-transcript/
     Bash
 
     ```
-    git clone https://github.com/yourusername/audio-transcript.git
-
+    git clone https://github.com/lucianoaf8/audio-transcript.git
     ```
 
 2.  Navigate to the project directory:
@@ -42,7 +41,6 @@ audio-transcript/
 
     ```
     cd audio-transcript
-
     ```
 
 3.  Install the required dependencies:
@@ -51,7 +49,6 @@ audio-transcript/
 
     ```
     pip install -r requirements.txt
-
     ```
 
 4.  Ensure ffmpeg is installed and added to your system path:
@@ -69,7 +66,6 @@ audio-transcript/
 
     ```
     python transcribe.py
-
     ```
 
 The transcriptions will be saved in the `data/output` directory with the same filename as the input audio file but with a `.txt` extension.
