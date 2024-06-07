@@ -3,8 +3,8 @@ import whisper
 
 model = whisper.load_model("base")
 
-input_dir = r"C:\Users\Luciano\Documents\Projects\audio-transcript\to_transcript"
-output_dir = r"C:\Users\Luciano\Documents\Projects\audio-transcript\transcripted"
+input_dir = "C:/Users/Luciano/Documents/Projects/audio-transcript/to_transcript"
+output_dir = "C:/Users/Luciano/Documents/Projects/audio-transcript/transcripted"
 
 # Ensure directories exist
 if not os.path.exists(input_dir):
